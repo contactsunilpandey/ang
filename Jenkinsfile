@@ -9,6 +9,7 @@ node {
           npm --version
         """
       }
+  }
  
  stage("Checkout SCM"){
   git branch:'main', url:'https://github.com/contactsunilpandey/ang.git'
