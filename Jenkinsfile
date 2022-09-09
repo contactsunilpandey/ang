@@ -8,7 +8,12 @@ pipeline {
   stages {
     stage('Test npm') {
         steps {
-          sh 'npm --version'
+          sh 'npm install'
+        }
+    }
+    stage('Build') {
+        steps {
+          sh 'ng build'
         }
     }
   }
