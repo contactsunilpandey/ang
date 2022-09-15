@@ -8,13 +8,17 @@ pipeline {
     }*/
 
     agent {
+        reuseNode true
         docker { image 'node:18.9-alpine3.15' }
     }
    
     environment {
-        HOME = '.'
+         // Override HOME to WORKSPACE
+        HOME = "${WORKSPACE}"
+        // or override default cache directory (~/.npm)
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
     }
-    
+
   stages {
     stage('Check Node Version') {
             steps {
