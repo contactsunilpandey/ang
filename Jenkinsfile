@@ -12,12 +12,13 @@ pipeline {
         docker { 
           reuseNode true
           image 'node:18.9-alpine3.15' 
+          args '-u ubuntu:ubuntu'
         }
     }
    
     environment {
          // Override HOME to WORKSPACE
-        HOME = "${WORKSPACE}"
+        //HOME = "${WORKSPACE}"
         // or override default cache directory (~/.npm)
         //NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
 
