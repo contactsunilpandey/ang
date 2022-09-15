@@ -12,6 +12,7 @@ pipeline {
         docker { 
           reuseNode true
           image 'node:18.9-alpine3.15' 
+          args '-u ubuntu:ubuntu'
           
         }
     }
