@@ -4,7 +4,7 @@ pipeline {
     } 
    
    environment {
-        CHROME_BIN = '/opt/google/chrome/google-chrome'        
+        CHROME_BIN = '/usr/bin/google-chrome'        
     }
   
   stages {
