@@ -8,7 +8,7 @@ pipeline {
    environment {
         CHROME_BIN = '/usr/bin/google-chrome'        
     }
-  
+   
   stages {
     stage('Check Node Version') {
             steps {
