@@ -1,11 +1,15 @@
 pipeline { 
-  agent any
-
- tools { 
-   nodejs "NodeJS18"
- }
+   agent {
+        docker { image 'node:18.9-alpine3.15' }
+    } 
   
   stages {
+    stage('Check Node Version') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    
     stage('Install Packages') {
         steps {
           sh 'npm install'
