@@ -2,6 +2,10 @@ pipeline {
    agent {
         docker { image 'node:18.9-alpine3.15' }
     } 
+   
+   environment {
+        CHROME_BIN = '/usr/bin/google-chrome'        
+    }
   
   stages {
     stage('Check Node Version') {
