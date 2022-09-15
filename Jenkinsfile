@@ -19,9 +19,9 @@ pipeline {
    
     environment {
          // Override HOME to WORKSPACE
-        //HOME = "${WORKSPACE}"
+        HOME = "${WORKSPACE}"
         // or override default cache directory (~/.npm)
-        //NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
 
         CHROME_BIN = "/var/lib/google-chrome"
     }
