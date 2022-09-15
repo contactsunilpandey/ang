@@ -11,6 +11,10 @@ pipeline {
         docker { image 'node:18.9-alpine3.15' }
     }
    
+    environment {
+        HOME = '.'
+    }
+    
   stages {
     stage('Check Node Version') {
             steps {
