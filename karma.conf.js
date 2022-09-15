@@ -6,7 +6,7 @@
 module.exports = function (config) {
 
   const puppeteer = require('puppeteer');
-  process.env.CHROME_BIN = puppeteer.executablePath();
+  process.env.CHROME_BIN = "/usr/lib/google-chrome"//puppeteer.executablePath();
 
   
   
@@ -46,13 +46,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessCI'],
-    customLaunchers: {
-      ChromeHeadlessCI: {
-          base: 'ChromeHeadless',
-          flags: ['--no-sandbox']
-      }
-    },
+    browsers: ['Chrome', 'google-chrome'],
+    //browsers: ['ChromeHeadlessCI'],
+    // customLaunchers: {
+    //   ChromeHeadlessCI: {
+    //       base: 'ChromeHeadless',
+    //       flags: ['--no-sandbox']
+    //   }
+    // },
     singleRun: false,
     restartOnFileChange: true
   });
