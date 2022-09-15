@@ -8,6 +8,9 @@ module.exports = function (config) {
   const puppeteer = require('puppeteer');
   process.env.CHROME_BIN = puppeteer.executablePath();
 
+  
+  
+
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
