@@ -1,12 +1,14 @@
 pipeline { 
+  
+  /*
     agent any
 
- tools { 
-   nodejs "NodeJS18"
- }
-   
-   environment {
-        CHROME_BIN = '/usr/bin/google-chrome'        
+    tools { 
+      nodejs "NodeJS18"
+    }*/
+
+    agent {
+        docker { image 'node:18.9-alpine3.15' }
     }
    
   stages {
