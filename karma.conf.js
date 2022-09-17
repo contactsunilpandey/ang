@@ -6,7 +6,7 @@
 module.exports = function (config) {
 
   const puppeteer = require('puppeteer');
-  process.env.CHROME_BIN = "/usr/lib/google-chrome"//puppeteer.executablePath();
+  process.env.CHROME_BIN = "/usr/lib/chromium-browser"//google-chrome"//puppeteer.executablePath();
 
   
   
