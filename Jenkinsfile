@@ -8,13 +8,10 @@ pipeline {
     }*/
 
     agent {
-        dockerfile true
-        //docker { 
-          //reuseNode true
-          //image 'node:18.9-alpine3.15' 
-          //args '-u ubuntu:ubuntu'
-          
-        //}
+        dockerfile {
+            filename  'Dockerfile'
+            args  '--privileged'
+        }
     }
    
     environment {
