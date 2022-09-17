@@ -29,7 +29,7 @@ pipeline {
   stages {
     stage('Check Node Version') {
             steps {
-                sh 'node --version'
+                sh 'ls -al /usr/bin | grep chrom'
             }
         }
     
