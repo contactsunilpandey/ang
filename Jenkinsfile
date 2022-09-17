@@ -23,7 +23,7 @@ pipeline {
         // or override default cache directory (~/.npm)
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
 
-        CHROME_BIN = "/usr/bin/google-chrome"
+        CHROME_BIN = "/usr/bin/chromium-browser"
     }
 
   stages {
