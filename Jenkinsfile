@@ -37,7 +37,7 @@ pipeline {
     stage('Dockerize') {
         agent { 
             dockerfile {
-                filename  'Dockerfile
+                filename  'Dockerfile'
                 args  '--privileged'
             } 
         }
