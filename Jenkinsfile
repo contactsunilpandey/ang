@@ -20,46 +20,39 @@ pipeline {
 
   stages {
     stage('Run Test') {
-
-            agent {
-                dockerfile {
-                    filename  'Dockerfile_alpinenode'
-                    args  '--privileged'
-                }
+        agent {
+            dockerfile {
+                filename  'Dockerfile_alpinenode'
+                args  '--privileged'
             }
-            steps{
-                step {
-                    echo 'Checking chrome binary'
-                    sh 'ls -al /usr/bin | grep chrom'
-                }
-                step {
-                    echo 'Installing packages'
-                    sh 'npm install'
-                }
-
-                step {
-                    echo 'Run test-headless npm run command'
-                    sh 'npm run test-headless'
-                }
-                step {
-                    echo 'Building'
-                    sh 'npm run build'
-                }
-            }
+        }
+        steps{
+                            
+            echo 'Checking chrome binary'
+            sh 'ls -al /usr/bin | grep chrom'
+        
+            echo 'Installing packages'
+            sh 'npm install'
+        
+            echo 'Run test-headless npm run command'
+            sh 'npm run test-headless'
+        
+            echo 'Building'
+            sh 'npm run build'                
+        }
     }
     stage('Dockerize') {
         agent { 
             docker 'nginx:stable-alpine' 
         }
         steps{
-            step {
-                echo 'Checking NGINX version'
-                sh 'nginx -v'
-            }
-            step {
-                echo 'ls workspace'
-                sh 'ls -al ${WORKSPACE}'
-            }
+            
+            echo 'Checking NGINX version'
+            sh 'nginx -v'
+        
+            echo 'ls workspace'
+            sh 'ls -al ${WORKSPACE}'
+            
         }
     }
   }
