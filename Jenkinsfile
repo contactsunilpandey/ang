@@ -7,12 +7,7 @@ pipeline {
       nodejs "NodeJS18"
     }*/
 
-    agent {
-        dockerfile {
-            filename  'Dockerfile_alpinenode'
-            args  '--privileged'
-        }
-    }
+    
    
     environment {
          // Override HOME to WORKSPACE
@@ -24,25 +19,45 @@ pipeline {
     }
 
   stages {
-    stage('Check Node Version') {
+    stage('Run Test') {
+
+            agent {
+                dockerfile {
+                    filename  'Dockerfile_alpinenode'
+                    args  '--privileged'
+                }
+            }
+
             steps {
+                echo 'Checking chrome binary'
                 sh 'ls -al /usr/bin | grep chrom'
             }
-        }
-    
-    stage('Install Packages') {
-        steps {
-          sh 'npm install'
-        }
+            steps {
+                echo 'Installing packages'
+                sh 'npm install'
+            }
+
+            steps {
+                echo 'Run test-headless npm run command'
+                sh 'npm run test-headless'
+            }
+            steps {
+                echo 'Building'
+                sh 'npm run build'
+            }
     }
-     stage('Test') {
-        steps {
-          sh 'npm run test-headless'
+    stage('Dockerize') {
+        agent { 
+            docker 'nginx:stable-alpine' 
         }
-    }
-    stage('Build') {
+
         steps {
-          sh 'npm run build'
+            echo 'Checking NGINX version'
+            sh 'nginx -v'
+        }
+        steps {
+            echo 'ls workspace'
+            sh 'ls -al ${WORKSPACE}'
         }
     }
   }
