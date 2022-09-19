@@ -12,7 +12,7 @@ pipeline {
     }
 
   stages {
-    /*stage('Run Test') {
+    stage('Run Test') {
         agent {
             dockerfile {
                 filename  'Dockerfile_alpinenode'
@@ -33,7 +33,7 @@ pipeline {
             echo 'Building'
             sh 'npm run build'                
         }
-    }*/
+    }
     stage('Dockerize') {
         agent { 
             dockerfile {
