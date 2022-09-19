@@ -1,2 +1,3 @@
 FROM nginx:stable-alpine
-RUN echo ${WD}
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY ${WD}/dist/ang /usr/share/nginx/html

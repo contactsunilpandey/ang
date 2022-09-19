@@ -44,7 +44,7 @@ pipeline {
         steps{
             
             echo 'Checking NGINX version'
-            sh 'nginx -v'
+            sh 'ls -al /usr/share/nginx/html'
         
             echo 'ls workspace'
             sh 'ls -al ${WD}'
