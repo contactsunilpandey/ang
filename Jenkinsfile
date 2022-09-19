@@ -38,7 +38,7 @@ pipeline {
         agent { 
             dockerfile {
                 filename  'Dockerfile'
-                args  '--privileged'
+                args  '--privileged -e WD="${WORKSPACE}"'
             } 
         }
         steps{
