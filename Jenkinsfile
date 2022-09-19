@@ -27,37 +27,39 @@ pipeline {
                     args  '--privileged'
                 }
             }
+            steps{
+                step {
+                    echo 'Checking chrome binary'
+                    sh 'ls -al /usr/bin | grep chrom'
+                }
+                step {
+                    echo 'Installing packages'
+                    sh 'npm install'
+                }
 
-            steps {
-                echo 'Checking chrome binary'
-                sh 'ls -al /usr/bin | grep chrom'
-            }
-            steps {
-                echo 'Installing packages'
-                sh 'npm install'
-            }
-
-            steps {
-                echo 'Run test-headless npm run command'
-                sh 'npm run test-headless'
-            }
-            steps {
-                echo 'Building'
-                sh 'npm run build'
+                step {
+                    echo 'Run test-headless npm run command'
+                    sh 'npm run test-headless'
+                }
+                step {
+                    echo 'Building'
+                    sh 'npm run build'
+                }
             }
     }
     stage('Dockerize') {
         agent { 
             docker 'nginx:stable-alpine' 
         }
-
-        steps {
-            echo 'Checking NGINX version'
-            sh 'nginx -v'
-        }
-        steps {
-            echo 'ls workspace'
-            sh 'ls -al ${WORKSPACE}'
+        steps{
+            step {
+                echo 'Checking NGINX version'
+                sh 'nginx -v'
+            }
+            step {
+                echo 'ls workspace'
+                sh 'ls -al ${WORKSPACE}'
+            }
         }
     }
   }
