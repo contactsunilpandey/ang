@@ -1,13 +1,6 @@
-pipeline { 
-  
-  /*
-    agent any
+pipeline {   
 
-    tools { 
-      nodejs "NodeJS18"
-    }*/
-
-    agent any
+    agent none
    
     environment {
          // Override HOME to WORKSPACE
@@ -56,18 +49,4 @@ pipeline {
         }
     }
   }
-  
- post {
-    always{
-      emailext to: "forcicd@gmail.com",
-      //subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-      //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-      subject: "jenkins build:",
-      body: "nMore Info can be found here:",
-      attachLog: true
-      
-      cleanWs()
-    }
-  }
-  
 }
