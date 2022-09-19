@@ -36,7 +36,10 @@ pipeline {
     }
     stage('Dockerize') {
         agent { 
-            docker 'nginx:stable-alpine' 
+            dockerfile {
+                filename  'Dockerfile
+                args  '--privileged'
+            } 
         }
         steps{
             
