@@ -47,7 +47,7 @@ pipeline {
             sh 'nginx -v'
         
             echo 'ls workspace'
-            sh 'ls -al ${WORKSPACE}'
+            sh 'ls -al ${WD}'
             
         }
     }
