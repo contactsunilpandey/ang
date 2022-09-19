@@ -9,7 +9,7 @@ pipeline {
 
     agent {
         dockerfile {
-            filename  'Dockerfile'
+            filename  'Dockerfile_alpinenode'
             args  '--privileged'
         }
     }
