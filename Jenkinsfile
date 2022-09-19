@@ -7,7 +7,7 @@ pipeline {
       nodejs "NodeJS18"
     }*/
 
-    agent none
+    agent any
    
     environment {
          // Override HOME to WORKSPACE
