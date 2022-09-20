@@ -55,8 +55,8 @@ pipeline {
         agent any
         steps{
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                sh "docker stop ubuntu/ang-container"
-                sh "docker rm ubuntu/ang-container"
+                sh "docker stop ubuntu-ang-container"
+                sh "docker rm ubuntu-ang-container"
             }          
         }
     }
@@ -64,7 +64,7 @@ pipeline {
     stage("Run Docker Container"){
         agent any
         steps{          
-            sh "docker run --name ubuntu/ang-container -it  -d -p 8888:80 ubuntu/ang-image"
+            sh "docker run --name ubuntu-ang-container -it  -d -p 8888:80 ubuntu/ang-image"
         }
     }
     // stage('Dockerize') {
