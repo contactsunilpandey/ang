@@ -71,8 +71,9 @@ pipeline {
   }
 
    post {
-    always{
-        agent any
+    agent any
+
+    always{       
 
         emailext to: "forcicd@gmail.com",
         subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
