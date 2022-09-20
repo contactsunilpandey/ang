@@ -35,10 +35,18 @@ pipeline {
         }
     }
 
-    stage("Build Docker Image"){
+    stage("Try Remove Docker Image"){
         agent any
         steps{
-            sh "docker image rm ubuntu/ang-image"
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                sh "docker image rm ubuntu/ang-image" 
+            }          
+        }
+    }
+
+     stage("Build Docker Image"){
+        agent any
+        steps{           
             sh "docker build -f=Dockerfile_dev -t ubuntu/ang-image ."
         }
     }
@@ -69,3 +77,27 @@ pipeline {
     // }
   }
 }
+
+
+// def tryRemoveExistingImages(myString) {
+//     /* Dummy method to show User Aborts vs Build Failures */
+
+//     echo "Attempting remove ubuntu/ang-image" + myString
+
+//     try {
+//         build (
+//             job: "Dummy_Downstream_Job"
+//         )
+
+//     } catch (e) {
+//         /* Build Aborted by user - Stop All Test Executions */
+//         if (e.getMessage().contains("was cancelled") || e.getMessage().contains("ABORTED")) {
+
+//             env.GLOBAL_BUILD_ABORTED = true
+//         }
+//         /* Throw the execiption to be caught by catchError() to mark the stage failed. */
+//         throw (e)
+//     }
+
+//     // Do other stuff...
+// }
