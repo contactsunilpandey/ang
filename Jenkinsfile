@@ -36,12 +36,14 @@ pipeline {
     }
 
     stage("Build Docker Image"){
+        agent any
         steps{
             sh "docker image rm ubuntu/ang-image"
             sh "docker build -f=Dockerfile_dev -t ubuntu/ang-image ."
         }
     }
      stage("Stop And Remove Existing Docker Container"){
+        agent any
         steps{
             sh "docker stop ubuntu/ang-container"
             sh "docker rm ubuntu/ang-container"
