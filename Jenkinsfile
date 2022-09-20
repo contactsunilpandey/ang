@@ -72,18 +72,16 @@ pipeline {
 
    post {    
 
-    always{       
- node("mailer") {
+    always{   
 
- 
-            
-        
-        emailext to: "forcicd@gmail.com",
-        subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-        attachLog: true
- 
-}
+        step([$class: 'Mailer', notifyEveryUnstableBuild: true, 
+        recipients: "forcicd@gmail.com", 
+        sendToIndividuals: true])
+
+        // emailext to: "forcicd@gmail.com",
+        // subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+        // body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+        // attachLog: true
         //cleanWs()
     }
   }
