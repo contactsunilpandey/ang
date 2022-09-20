@@ -34,22 +34,36 @@ pipeline {
             sh 'npm run build'                
         }
     }
-    stage('Dockerize') {
-        agent { 
-            dockerfile {
-                filename  'Dockerfile_deployment'
-                args  '--privileged -e WD="${WORKSPACE}"'
-            } 
-        }
+
+    stage("Build Docker Image"){
         steps{
-            
-            echo 'ls workspace'
-            sh 'ls -al ${WD}/dist/ang'
-
-            echo 'Checking NGINX version'
-            sh 'ls -al /usr/share/nginx/html'
-
+            sh "docker image rm ubuntu/ang-image"
+            sh "docker build -f=Dockerfile_dev -t ubuntu/ang-image ."
         }
     }
+     stage("Stop And Remove Existing Docker Container"){
+        steps{
+            sh "docker stop ubuntu/ang-container"
+            sh "docker rm ubuntu/ang-container"
+            sh "docker run --name ubuntu/ang-container -it  -d -p 8888:80 ubuntu/ang-image"
+        }
+    }
+    // stage('Dockerize') {
+    //     agent { 
+    //         dockerfile {
+    //             filename  'Dockerfile_deployment'
+    //             args  '--privileged -e WD="${WORKSPACE}"'
+    //         } 
+    //     }
+    //     steps{
+            
+    //         echo 'ls workspace'
+    //         sh 'ls -al ${WD}/dist/ang'
+
+    //         echo 'Checking NGINX version'
+    //         sh 'ls -al /usr/share/nginx/html'
+
+    //     }
+    // }
   }
 }
