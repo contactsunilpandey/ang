@@ -67,23 +67,20 @@ pipeline {
             sh "docker run --name ubuntu-ang-container -it  -d -p 8888:80 ubuntu/ang-image"
         }
     }
-    // stage('Dockerize') {
-    //     agent { 
-    //         dockerfile {
-    //             filename  'Dockerfile_deployment'
-    //             args  '--privileged -e WD="${WORKSPACE}"'
-    //         } 
-    //     }
-    //     steps{
-            
-    //         echo 'ls workspace'
-    //         sh 'ls -al ${WD}/dist/ang'
+   
+  }
 
-    //         echo 'Checking NGINX version'
-    //         sh 'ls -al /usr/share/nginx/html'
+   post {
+    always{
+        agent any
 
-    //     }
-    // }
+        emailext to: "forcicd@gmail.com",
+        subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+        attachLog: true
+
+        //cleanWs()
+    }
   }
 }
 
