@@ -1,0 +1,44 @@
+pipeline {   
+
+    agent none
+    
+     options {
+        skipDefaultCheckout true
+    }
+   
+    environment {
+         // Override HOME to WORKSPACE
+        HOME = "${WORKSPACE}"
+        // or override default cache directory (~/.npm)
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+
+        CHROME_BIN = "/usr/bin/chromium-browser"
+    }
+
+  stages {
+    stage('Checkout') {
+        agent any
+      steps{
+          
+            checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[cancelProcessOnExternalsFail: true, credentialsId: '7e34df27-444b-4376-bcac-7526ea2e345e', depthOption: 'infinity', ignoreExternalsOption: true, local: '.', remote: 'https://10.5.1.79:8080/svn/synodex2/branches/iws6/iws-client/V2.0.0.0']], quietOperation: true, workspaceUpdater: [$class: 'UpdateUpdater']])
+        
+                    
+        }
+    }
+    
+     stage('Run Test') {
+         agent {
+        docker { image 'node:16.13.1-alpine' }
+    }
+        steps{
+            
+            checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[cancelProcessOnExternalsFail: true, credentialsId: '7e34df27-444b-4376-bcac-7526ea2e345e', depthOption: 'infinity', ignoreExternalsOption: true, local: '.', remote: 'https://10.5.1.79:8080/svn/synodex2/branches/iws6/iws-client/V2.0.0.0']], quietOperation: true, workspaceUpdater: [$class: 'UpdateUpdater']])
+        
+            echo 'Installing packages'
+            sh 'npm install'
+            
+            echo 'Building'
+            sh 'npm run build'                
+        }
+    }
+  }}
