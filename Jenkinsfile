@@ -1,4 +1,10 @@
 pipeline {   
+    
+      stage('Initialize')
+    {
+        def dockerHome = tool 'IwsDocker'       
+        env.PATH = "${dockerHome}/bin"
+    }
 
     agent none
    
