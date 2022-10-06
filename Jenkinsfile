@@ -1,11 +1,6 @@
 pipeline {   
     
-      stage('Initialize')
-    {
-        def dockerHome = tool 'IwsDocker'       
-        env.PATH = "${dockerHome}/bin"
-    }
-
+   
     agent none
    
     environment {
@@ -18,7 +13,8 @@ pipeline {
     }
 
   stages {
-    stage('Run Test') {
+    stage('Run Test') {   
+        
         agent {
             dockerfile {
                 filename  'Dockerfile_alpinenode'
